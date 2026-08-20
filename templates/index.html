@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Yield Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Inceptor Kenya</p>
+          <h1>Crop Yield Prediction</h1>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="panel metrics-panel">
+          <h2>Model Summary</h2>
+          <div class="metric-list">
+            <div class="metric-card">
+              <span class="label">R² Score</span>
+              <strong>{{ metrics.r2_score }}</strong>
+            </div>
+            <div class="metric-card">
+              <span class="label">Dataset Rows</span>
+              <strong>{{ metrics.row_count }}</strong>
+            </div>
+          </div>
+          <p class="notes">
+            This model uses satellite-derived features, soil moisture, weather data,
+            and crop type to estimate field yield.
+          </p>
+        </section>
+
+        <section class="panel form-panel">
+          <h2>Prediction Inputs</h2>
+          <form method="post" class="prediction-form">
+            <div class="field-grid">
+              <label>
+                Crop Type
+                <select name="crop_type">
+                  {% for crop in crop_choices %}
+                    <option value="{{ crop }}" {% if form_data and form_data.get('crop_type') == crop %}selected{% endif %}>{{ crop }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+
+              <label>
+                Latitude
+                <input type="number" step="any" name="latitude" value="{{ form_data.latitude if form_data else '22.63' }}" required />
+              </label>
+
+              <label>
+                Longitude
+                <input type="number" step="any" name="longitude" value="{{ form_data.longitude if form_data else '88.50' }}" required />
+              </label>
+
+              <label>
+                NDVI
+                <input type="number" step="any" name="NDVI" value="{{ form_data.NDVI if form_data else '0.25' }}" required />
+              </label>
+
+              <label>
+                GNDVI
+                <input type="number" step="any" name="GNDVI" value="{{ form_data.GNDVI if form_data else '0.30' }}" required />
+              </label>
+
+              <label>
+                NDWI
+                <input type="number" step="any" name="NDWI" value="{{ form_data.NDWI if form_data else '-0.22' }}" required />
+              </label>
+
+              <label>
+                SAVI
+                <input type="number" step="any" name="SAVI" value="{{ form_data.SAVI if form_data else '0.32' }}" required />
+              </label>
+
+              <label>
+                Soil Moisture
+                <input type="number" step="any" name="soil_moisture" value="{{ form_data.soil_moisture if form_data else '35' }}" required />
+              </label>
+
+              <label>
+                Temperature
+                <input type="number" step="any" name="temperature" value="{{ form_data.temperature if form_data else '14' }}" required />
+              </label>
+
+              <label>
+                Rainfall
+                <input type="number" step="any" name="rainfall" value="{{ form_data.rainfall if form_data else '5' }}" required />
+              </label>
+            </div>
+
+            <button type="submit">Predict Yield</button>
+          </form>
+        </section>
+
+        <section class="panel result-panel">
+          <h2>Estimated Yield</h2>
+          {% if prediction is not none %}
+            <div class="result-box">
+              <span class="result-value">{{ prediction }}</span>
+              <span class="result-unit">yield units</span>
+            </div>
+            <p class="result-text">Predicted using the trained Random Forest model.</p>
+          {% else %}
+            <div class="placeholder">
+              Fill in the form and submit to generate a yield estimate.
+            </div>
+          {% endif %}
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
