@@ -1,5 +1,9 @@
 # Crop Yield Prediction for Smart Agriculture
 
+## Live Demo
+
+[Open the deployed application](https://crop-yield-prediction-production-5ede.up.railway.app)
+
 ## Project Topic
 Predicting crop yield using remote sensing and environmental variables to support data-driven agricultural planning, yield estimation, and farm management decisions.
 
