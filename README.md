@@ -58,7 +58,7 @@ The dataset used in this project contains agricultural field observations with t
 - yield: target variable representing crop output
 
 ## Business and Research Value
-This project combines data science, remote sensing, and agricultural analytics to solve a real-world production problem. It demonstrates how machine learning can convert environmental and field data into actionable insights for yield forecasting.
+This project combines data analytics, remote sensing, and agricultural analytics to solve a real-world production problem. It demonstrates how machine learning can convert environmental and field data into actionable insights for yield forecasting.
 
 ## Data Preprocessing
 The preprocessing pipeline includes:
